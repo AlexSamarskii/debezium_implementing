@@ -1,0 +1,8 @@
+CREATE SCHEMA IF NOT EXISTS debezium;
+
+CREATE TABLE IF NOT EXISTS debezium.users (
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    email TEXT NOT NULL UNIQUE,
+    created_at TIMESTAMPTZ DEFAULT NOW()
+);
