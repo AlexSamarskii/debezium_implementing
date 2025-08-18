@@ -4,10 +4,11 @@ import (
 	"log"
 	"os"
 
-	"github.com/AlexSamarskii/debezium_implementing.git/cmd"
-	"github.com/AlexSamarskii/debezium_implementing.git/config"
-	"github.com/AlexSamarskii/debezium_implementing.git/internal/db"
-	"github.com/AlexSamarskii/debezium_implementing.git/internal/migration"
+	"github.com/AlexSamarskii/debezium_implementing/cmd"
+	"github.com/AlexSamarskii/debezium_implementing/config"
+	"github.com/AlexSamarskii/debezium_implementing/internal/db"
+	"github.com/AlexSamarskii/debezium_implementing/internal/es"
+	"github.com/AlexSamarskii/debezium_implementing/internal/migration"
 	"github.com/spf13/cobra"
 )
 
@@ -27,6 +28,11 @@ func main() {
 		log.Fatalf("DB connect failed: %v", err)
 	}
 	defer db.Close()
+
+	esClient, err := es.NewClient([]string{cfg.Elasticsearch.URL})
+	if err != nil {
+		log.Fatalf("ES client failed: %v", err)
+	}
 
 	httpCmd := cmd.Http{Connection: db, Port: cfg.Server.Port}.Command()
 

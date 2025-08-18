@@ -1,0 +1,6 @@
+# connector/Dockerfile.connect
+FROM debezium/connect:2.4
+
+# COPY ./plugins/ /kafka/connect/
+
+# RUN confluent-hub install --no-prompt debezium/debezium-connector-postgresql:2.4

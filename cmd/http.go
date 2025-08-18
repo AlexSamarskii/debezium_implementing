@@ -5,7 +5,6 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
-	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
@@ -13,6 +12,8 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/spf13/cobra"
+
+	"github.com/AlexSamarskii/debezium_implementing/internal/transport/http"
 )
 
 type Http struct {
@@ -33,9 +34,9 @@ func (h Http) Command() *cobra.Command {
 }
 
 func (h Http) main() error {
-	// handler := http.UHandler{
-	// 	Connection: h.Connection,
-	// }
+	handler := http.Handler{
+		Connection: h.Connection,
+	}
 
 	app := fiber.New()
 

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/AlexSamarskii/debezium_implementing.git/config"
+	"github.com/AlexSamarskii/debezium_implementing/config"
 	"github.com/golang-migrate/migrate/v4"
 )
 

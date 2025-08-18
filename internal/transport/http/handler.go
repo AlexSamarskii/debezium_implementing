@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/AlexSamarskii/debezium_implementing.git/internal/transport/http/models"
+	"github.com/AlexSamarskii/debezium_implementing/internal/transport/http/models"
 	"github.com/gofiber/fiber"
 )
 

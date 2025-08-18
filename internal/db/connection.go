@@ -7,7 +7,7 @@ import (
 	"log"
 	"time"
 
-	"github.com/AlexSamarskii/debezium_implementing.git/config"
+	"github.com/AlexSamarskii/debezium_implementing/config"
 )
 
 func NewConnection(cfg *config.Config) (*sql.DB, error) {
