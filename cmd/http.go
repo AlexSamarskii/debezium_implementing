@@ -34,7 +34,7 @@ func (h Http) Command() *cobra.Command {
 			return h.main(cmd.Context())
 		},
 	}
-	cmd.Flags().IntVar(&h.Port, "port", 8080, "HTTP server port")
+	cmd.Flags().IntVar(&h.Port, "port", 7490, "HTTP server port")
 	return cmd
 }
 

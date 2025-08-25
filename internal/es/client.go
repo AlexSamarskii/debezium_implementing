@@ -87,3 +87,29 @@ func (c *Client) DeleteUser(ctx context.Context, id int) error {
 	log.Printf("Deleted user with ID=%d", id)
 	return nil
 }
+
+func CreateIndexIfNotExists(esClient *elasticsearch.Client, indexName string) error {
+	ctx := context.Background()
+	exists, err := esClient.Indices.Exists([]string{indexName}, esClient.Indices.Exists.WithContext(ctx))
+	if err != nil {
+		return fmt.Errorf("failed to check if index exists: %w", err)
+	}
+	if exists.StatusCode == 404 {
+		_, err := esClient.Indices.Create(indexName,
+			esClient.Indices.Create.WithBody(strings.NewReader(`{
+				"mappings": {
+					"properties": {
+						"id": { "type": "long" },
+						"name": { "type": "text" },
+						"email": { "type": "keyword" }
+					}
+				}
+			}`)),
+		)
+		if err != nil {
+			return fmt.Errorf("failed to create index: %w", err)
+		}
+		log.Printf("Index '%s' created", indexName)
+	}
+	return nil
+}

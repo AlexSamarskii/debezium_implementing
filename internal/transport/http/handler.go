@@ -12,8 +12,8 @@ import (
 )
 
 const (
-	insertQuery = `INSERT INTO users (name, email) VALUES ($1, $2)`
-	selectQuery = `SELECT id, name, email FROM users`
+	insertQuery = `INSERT INTO debezium.users (name, email) VALUES ($1, $2)`
+	selectQuery = `SELECT id, name, email FROM debezium.users`
 )
 
 type Handler struct {
