@@ -8,7 +8,7 @@ import (
 	"time"
 
 	"github.com/AlexSamarskii/debezium_implementing/internal/transport/http/models"
-	"github.com/gofiber/fiber"
+	"github.com/gofiber/fiber/v2"
 )
 
 const (

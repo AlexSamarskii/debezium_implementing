@@ -9,6 +9,8 @@ import (
 	"github.com/AlexSamarskii/debezium_implementing/internal/db"
 	"github.com/AlexSamarskii/debezium_implementing/internal/es"
 	"github.com/AlexSamarskii/debezium_implementing/internal/migration"
+	_ "github.com/golang-migrate/migrate/v4/database/postgres"
+	_ "github.com/golang-migrate/migrate/v4/source/file"
 	"github.com/spf13/cobra"
 )
 
@@ -23,18 +25,23 @@ func main() {
 		log.Fatalf("Migration failed: %v", err)
 	}
 
-	db, err := db.NewConnection(cfg)
+	dbConn, err := db.NewConnection(cfg)
 	if err != nil {
 		log.Fatalf("DB connect failed: %v", err)
 	}
-	defer db.Close()
+	defer dbConn.Close()
 
 	esClient, err := es.NewClient([]string{cfg.Elasticsearch.URL})
 	if err != nil {
 		log.Fatalf("ES client failed: %v", err)
 	}
 
-	httpCmd := cmd.Http{Connection: db, Port: cfg.Server.Port}.Command()
+	httpCmd := cmd.Http{
+		Connection: dbConn,
+		Port:       cfg.Server.Port,
+		EsClient:   esClient,
+		KafkaCfg:   cfg.Kafka,
+	}.Command()
 
 	migrateCmd := &cobra.Command{
 		Use:   "migrate",

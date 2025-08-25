@@ -21,7 +21,7 @@ func NewClient(addresses []string) (*Client, error) {
 	cfg := elasticsearch.Config{
 		Addresses: addresses,
 		// Username: "elastic",
-		// Password: "password",
+		// Password: "",
 	}
 
 	es, err := elasticsearch.NewClient(cfg)

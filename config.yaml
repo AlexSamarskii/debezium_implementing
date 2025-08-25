@@ -1,0 +1,21 @@
+database:
+  host: "postgres"
+  port: 5432
+  user: "postgres"
+  password: "postgres"
+  name: "debezium"
+  max_open_conns: 25
+  max_idle_conns: 25
+  conn_max_lifetime_minutes: 5
+
+server:
+  port: 7490
+
+kafka:
+  brokers:
+    - "kafka:9092"
+  topic: "kafka.debezium.users"
+  group: "es-sync-group"
+
+elasticsearch:
+  url: "http://elasticsearch:9200"

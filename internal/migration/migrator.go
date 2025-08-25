@@ -6,6 +6,7 @@ import (
 
 	"github.com/AlexSamarskii/debezium_implementing/config"
 	"github.com/golang-migrate/migrate/v4"
+	_ "github.com/golang-migrate/migrate/v4/source/file"
 )
 
 type Migrator struct {
